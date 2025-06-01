@@ -1,0 +1,36 @@
+# Dependencies
+**/[Bb]in/
+**/[Oo]bj/
+**/packages/
+*.nupkg
+*.nuget.props
+*.nuget.targets
+
+# Build Results
+**/[Dd]ebug/
+**/[Rr]elease/
+**/[Pp]ublish/
+
+# Visual Studio specific
+.vs/
+*.suo
+*.user
+*.sln.docstates
+
+# Rider specific
+.idea/
+
+# User-specific files
+*.DotSettings.user
+
+
+
+# Secrets (ensure these are NEVER committed)
+secrets.json
+*.secrets.json
+
+# Log files
+*.log
+
+# Test results
+**/TestResults/

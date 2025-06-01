@@ -1,0 +1,19 @@
+@page
+@model OIBaseballLeagueAPI.Pages.statEntry.IndexModel
+@{
+    ViewData["Title"] = "Stat Entry Menu";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Container for navigation buttons to stat entry pages *@
+<div class="position_btnStat">
+    <form method="post">
+        <button type="submit" asp-page-handler="GoToHittingStats" class="btn_Cast">Enter Hitting Stats</button>
+    </form>
+
+    <form method="post">
+        <button type="submit" asp-page-handler="GoToPitchingStats" class="btn_Cast">Enter Pitching Stats</button>
+    </form>
+</div>
+

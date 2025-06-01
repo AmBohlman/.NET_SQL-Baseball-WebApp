@@ -1,0 +1,62 @@
+@page
+@model OIBaseballLeagueAPI.Pages.teamEntry.IndexModel
+@{
+    ViewData["Title"] = "Register New Team";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Team registration form *@
+<form class="entry_form" method="post">
+
+    @* Input fields for team and coach details *@
+    <div>
+        <label asp-for="TeamName">Team Name:</label>
+        <input asp-for="TeamName" />
+        <span asp-validation-for="TeamName" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="City">City:</label>
+        <input asp-for="City" />
+        <span asp-validation-for="City" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="State">State:</label>
+        <input asp-for="State" />
+        <span asp-validation-for="State" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="Address">Field Address:</label>
+        <input asp-for="Address" />
+        <span asp-validation-for="Address" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="CoachFirstName">Coach's First Name:</label>
+        <input asp-for="CoachFirstName" />
+        <span asp-validation-for="CoachFirstName" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="CoachLastName">Coach's Last Name:</label>
+        <input asp-for="CoachLastName" />
+        <span asp-validation-for="CoachLastName" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="CoachPhone">Coach's Phone:</label>
+        <input asp-for="CoachPhone" />
+        <span asp-validation-for="CoachPhone" class="entry_text"></span>
+    </div>
+
+    @* Form action buttons *@
+    <div>
+        <button class="btn_submit" type="submit" asp-page-handler="SubmitData"> Register Team</button>
+    </div>
+    <div>
+        <button class="btn_reset" type="reset" asp-page-handler="ResetForm">Reset Form</button>
+    </div>
+</form>
+
+@* Display feedback messages *@
+@if (Model?.Message != null) 
+{
+    <p class="error">@Model.Message</p>
+}

@@ -1,0 +1,98 @@
+@page
+@model OIBaseballLeagueAPI.Pages.statEntry.HittingStatEntryModel
+@{
+    ViewData["Title"] = "Enter Hitting Stats";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+<h3 class="info_label">Please Enter Stats in a game by game format, all previous stats have been saved and what is input will be added to the existing sum.</h3>
+
+@* Form for entering hitting stats *@
+<form class="entry_form" method="post">
+    @* Player selection dropdown *@
+    <div>
+        <label class="form_label" asp-for="SelectedPlayerID">Player:</label>
+        <select asp-for="SelectedPlayerID" asp-items="Model.PlayerOptions"></select>
+        <span asp-validation-for="SelectedPlayerID" class="entry_text"></span>
+    </div>
+
+    <hr />
+    <h3>Hitting Stats for Selected Player:</h3>
+
+    @* Input fields for various hitting statistics *@
+    <div>
+        <label class="form_label" asp-for="AtBats">At Bats (AB):</label>
+        <input asp-for="AtBats" type="number" />
+        <span asp-validation-for="AtBats" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="PlateAppearances">Plate Appearances (PA):</label>
+        <input asp-for="PlateAppearances" type="number" />
+        <span asp-validation-for="PlateAppearances" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="Hits">Hits (H):</label>
+        <input asp-for="Hits" type="number" />
+        <span asp-validation-for="Hits" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="Runs">Runs (R):</label>
+        <input asp-for="Runs" type="number" />
+        <span asp-validation-for="Runs" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="Strikeouts">Strikeouts (K):</label>
+        <input asp-for="Strikeouts" type="number" />
+        <span asp-validation-for="Strikeouts" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="Walks">Walks (BB):</label>
+        <input asp-for="Walks" type="number" />
+        <span asp-validation-for="Walks" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="HitByPitch">Hit By Pitch (HBP):</label>
+        <input asp-for="HitByPitch" type="number" />
+        <span asp-validation-for="HitByPitch" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="StolenBases">Stolen Bases (SB):</label>
+        <input asp-for="StolenBases" type="number" />
+        <span asp-validation-for="StolenBases" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="Doubles">Doubles (2B):</label>
+        <input asp-for="Doubles" type="number" />
+        <span asp-validation-for="Doubles" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="Triples">Triples (3B):</label>
+        <input asp-for="Triples" type="number" />
+        <span asp-validation-for="Triples" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="HomeRuns">Home Runs (HR):</label>
+        <input asp-for="HomeRuns" type="number" />
+        <span asp-validation-for="HomeRuns" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="RunsBattedIn">Runs Batted In (RBI):</label>
+        <input asp-for="RunsBattedIn" type="number" />
+        <span asp-validation-for="RunsBattedIn" class="entry_text"></span>
+    </div>
+
+    @* Form action buttons *@
+    <div>
+        <button class="btn_submit" type="submit">Save Hitting Stats</button>
+    </div>
+    <div>
+        <button class="btn_reset" type="reset">Reset</button>
+    </div>
+</form>
+
+@* Display feedback messages *@
+@if (Model?.Message != null)
+{
+    <p class="error">@Model.Message</p>
+}

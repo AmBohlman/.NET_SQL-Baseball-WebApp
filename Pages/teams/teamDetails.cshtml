@@ -1,0 +1,53 @@
+@page "{id:int}"
+@model OIBaseballLeagueAPI.Pages.teams.teamDetailsModel
+@{
+    ViewData["Title"] = "Team Details";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="error">@Model.Message</p>
+}
+
+@if (Model.TeamDetail != null)
+{
+    <div>
+        <h2 class="table_title">Team Information</h2>
+        <hr />
+        <div class="infoDisplay">
+            <div>
+                <strong>Team Name:</strong> 
+                <span>@Model.TeamDetail["city"]</span> 
+                <span>@Model.TeamDetail["teamName"]</span>
+            </div>
+            <div>
+                <strong>Team ID:</strong> 
+                <span>@Model.TeamDetail["teamID"]</span>
+            </div>
+            <div>
+                <strong>Location:</strong> 
+                <span>@Model.TeamDetail["city"]</span>
+                <span>@Model.TeamDetail["state"]</span>
+            </div>
+            <div>
+                <strong>Coach's Name:</strong> 
+                <span>@Model.TeamDetail["coachFN"]</span>
+                <span>@Model.TeamDetail["coachLN"]</span>
+            </div>
+            <div>
+                <strong>Coach's Contact Info:</strong> 
+                <span>@Model.TeamDetail["coachPhone"]</span>
+            </div>
+        </div>
+    </div>
+}
+else if (string.IsNullOrEmpty(Model.Message))
+{
+    <p>Team details could not be loaded or the player was not found.</p>
+}
+
+<div class="position_return">
+    <a asp-page="./Index" class="btn_return">Back to Team List</a>
+</div>

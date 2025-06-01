@@ -1,0 +1,52 @@
+@page
+@model OIBaseballLeagueAPI.Pages.PlayerDeletionModel
+@{
+    ViewData["Title"] = "Delete Player";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Display feedback messages *@
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="error">
+        @Html.Raw(Model.Message.ReplaceLineEndings("<br />"))
+    </p>
+}
+
+@* Initial form to select a player for deletion *@
+@if (!Model.ShowConfirmation)
+{
+    @* Form for selecting a player to delete *@
+    <form class="entry_form" method="post" asp-page-handler="RequestDelete">
+        @* Player selection dropdown *@
+        <div>
+            <label asp-for="PlayerIDToDelete" class="form_label">Select Player to Delete:</label>
+            <select asp-for="PlayerIDToDelete" asp-items="Model.PlayerOptions"></select>
+            <span asp-validation-for="PlayerIDToDelete" class="entry_text"></span>
+        </div>
+        
+        <div>
+             <button type="submit" class="btn_submit">Delete Player</button>
+        </div>
+    </form>
+}
+else @* Confirmation step after a player is selected *@
+{
+    @* Display player name for deletion confirmation *@
+    <div>
+        <p>You are about to delete: <strong>@Model.PlayerNameToConfirm</strong></p>
+        <p>This action cannot be undone.</p>
+    </div>
+
+    @* Form to confirm player deletion *@
+    <form class="entry_form" method="post" asp-page-handler="ConfirmDelete">
+        <input type="hidden" asp-for="PlayerIDToDelete" />
+        
+        @* Confirmation action buttons *@
+        <div>
+            <button type="submit" class="btn_submit">Confirm Deletion</button>
+            <a asp-page="/PlayerDeletion" class="btn_reset">Cancel</a>
+        </div>
+    </form>
+}

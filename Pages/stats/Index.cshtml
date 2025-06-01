@@ -1,0 +1,83 @@
+@page
+@model OIBaseballLeagueAPI.Pages.stats.IndexModel
+@{
+    ViewData["Title"] = "League Stats";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Display server messages or status *@
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="error @(Model.HittingStatsData == null && Model.PitchingStatsData == null && !Model.Message.Contains("error") ? "alert-warning" : Model.Message.Contains("error") ? "alert-danger" : "alert-info")">
+        @Model.Message
+    </div>
+}
+
+@* Display hitting stats table if data exists *@
+@if (Model.HittingStatsData != null && Model.HittingStatsData.Rows.Count > 0 && Model.HittingStatHeaders.Any())
+{
+    <h2 class="table_title">Hitting Stats</h2>
+    <table id="hitter_table" class="table">
+        <thead>
+            <tr>
+                @* Populate hitting stats table headers *@
+                @foreach (var headerDisplayName in Model.HittingStatHeaders.Values)
+                {
+                    <th>@headerDisplayName</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @* Populate hitting stats table rows *@
+            @foreach (System.Data.DataRow row in Model.HittingStatsData.Rows)
+            {
+                <tr>
+                    @foreach (var dbColumnName in Model.HittingStatHeaders.Keys)
+                    {
+                        <td>@row[dbColumnName]</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@* Display pitching stats table if data exists *@
+@if (Model.PitchingStatsData != null && Model.PitchingStatsData.Rows.Count > 0 && Model.PitchingStatHeaders.Any())
+{
+    <h2 class="table_title">Pitching Stats</h2>
+    <table id="pitcher_table" class="table">
+        <thead>
+            <tr>
+                @* Populate pitching stats table headers *@
+                @foreach (var headerDisplayName in Model.PitchingStatHeaders.Values)
+                {
+                    <th>@headerDisplayName</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @* Populate pitching stats table rows *@
+            @foreach (System.Data.DataRow row in Model.PitchingStatsData.Rows)
+            {
+                <tr>
+                    @foreach (var dbColumnName in Model.PitchingStatHeaders.Keys)
+                    {
+                        <td>@row[dbColumnName]</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@* Script to initialize DataTables for both stats tables *@
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#hitter_table').DataTable();
+            $('#pitcher_table').DataTable();
+        });
+    </script>
+}

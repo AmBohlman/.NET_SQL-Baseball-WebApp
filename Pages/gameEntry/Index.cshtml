@@ -1,0 +1,61 @@
+@page
+@model OIBaseballLeagueAPI.Pages.gameEntry.IndexModel
+@{
+    ViewData["Title"] = "Enter New Game";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Game entry form *@
+<form class="entry_form" method="post">
+    @* Form input fields for game details *@
+    <div>
+        <label asp-for="HomeID" class="form_label">Home Team:</label>
+        <select asp-for="HomeID" asp-items="Model.TeamOptions"></select>
+        <span asp-validation-for="HomeID" class="entry_text"></span>
+    </div>
+
+    <div>
+        <label asp-for="AwayID" class="form_label">Away Team:</label>
+        <select asp-for="AwayID" asp-items="Model.TeamOptions"></select>
+        <span asp-validation-for="AwayID" class="entry_text"></span>
+    </div>
+
+    <div>
+        <label asp-for="HomeScore" class="form_label">Home Score:</label>
+        <input asp-for="HomeScore" />
+        <span asp-validation-for="HomeScore" class="entry_text"></span>
+    </div>
+
+    <div>
+        <label asp-for="AwayScore" class="form_label">Away Score:</label>
+        <input asp-for="AwayScore" />
+        <span asp-validation-for="AwayScore" class="entry_text"></span>
+    </div>
+
+    <div>
+        <label asp-for="GameDate" class="form_label">Date Game Was Played:</label>
+        <input asp-for="GameDate" />
+        <span asp-validation-for="GameDate" class="entry_text"></span>
+    </div>
+
+    <div>
+        <label asp-for="GameLocation" class="form_label">Field Address:</label>
+        <input asp-for="GameLocation" />
+        <span asp-validation-for="GameLocation" class="entry_text"></span>
+    </div>
+
+    @* Form action buttons *@
+    <div>
+        <button class="btn_submit" type="submit" asp-page-handler="SubmitData">Submit Game</button>
+    </div>
+    <div>
+        <button class="btn_reset" type="reset" asp-page-handler="ResetForm">Reset Form</button>
+    </div>
+</form>
+
+@* Display feedback messages *@
+@if (Model?.Message != null)
+{
+    <p class="error">@Model.Message</p>
+}

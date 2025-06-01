@@ -1,0 +1,57 @@
+@page
+@model OIBaseballLeagueAPI.Pages.playerEntry.IndexModel
+@{
+    ViewData["Title"] = "Register New Player";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Main form for player registration *@
+<form class="entry_form" method="post">
+
+    @* Input fields for player details *@
+    <div>
+        <label class="form_label" asp-for="PlayerFN">Player's First Name:</label>
+        <input asp-for="PlayerFN" />
+        <span asp-validation-for="PlayerFN" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="PlayerLN">Player's Last Name:</label>
+        <input asp-for="PlayerLN" />
+        <span asp-validation-for="PlayerLN" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="DateOfBirth">Player Date of Birth:</label>
+        <input asp-for="DateOfBirth" />
+        <span asp-validation-for="DateOfBirth" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="TeamID">Team:</label>
+        <select asp-for="TeamID" asp-items="Model.TeamOptions"></select>
+        <span asp-validation-for="TeamID" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="JerseyNumber">Jersey Number:</label>
+        <input asp-for="JerseyNumber" />
+        <span asp-validation-for="JerseyNumber" class="entry_text"></span>
+    </div>
+    <div>
+        <label class="form_label" asp-for="Position">Position:</label>
+        <input asp-for="Position" />
+        <span asp-validation-for="Position" class="entry_text"></span>
+    </div>
+
+    @* Form action buttons *@
+    <div>
+        <button class="btn_submit" type="submit" asp-page-handler="SubmitData">Register Player</button>
+    </div>
+    <div>
+        <button class="btn_reset" type="reset" asp-page-handler="ResetForm">Reset Form</button>
+    </div>
+</form>
+
+@* Display feedback messages from the server *@
+@if (Model?.Message != null)
+{
+    <p class="error">@Model.Message</p>
+}

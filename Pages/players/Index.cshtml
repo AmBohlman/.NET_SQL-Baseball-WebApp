@@ -1,0 +1,63 @@
+@page
+@model OIBaseballLeagueAPI.Pages.players.IndexModel
+@{
+    ViewData["Title"] = "Player List";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Link to player registration page *@
+<p>
+    <a asp-page="/playerEntry/Index" class="btn_return">Register New Player</a>
+</p>
+
+@* Display server messages *@
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="error">@Model.Message</p>
+}
+
+@* Display player list table if data exists *@
+@if (Model.PlayersData != null && Model.PlayersData.Rows.Count > 0)
+{
+    <table id="players_table" class="table">
+        <thead>
+            <tr>
+                <th class="table_head">ID</th>
+                <th class="table_head">First Name</th>
+                <th class="table_head">Last Name</th>
+                <th class="table_head">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* Populate table rows with player data *@
+            @foreach (System.Data.DataRow row in Model.PlayersData.Rows)
+            {
+                <tr>
+                    <td>@row["playerID"]</td>
+                    <td>@row["playerFN"]</td>
+                    <td>@row["playerLN"]</td>
+                    <td>
+                        <form method="get" asp-page="/Players/playerDetails" asp-route-id="@row["playerID"]" style="display: inline;">
+                            <button type="submit" class="btn_info">Details</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@* Message if no players are found and no other message is set *@
+else if (string.IsNullOrEmpty(Model.Message))
+{
+    <p>No players currently in the league. Register a new player to get started!</p>
+}
+
+@* Script to initialize DataTable for player list *@
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#players_table').DataTable();
+        });
+    </script>
+}

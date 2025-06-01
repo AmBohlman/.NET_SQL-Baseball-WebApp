@@ -1,0 +1,31 @@
+@page
+@model OIBaseballLeagueAPI.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* Main container for homepage content and navigation *@
+<div class="home_layout">
+    <h1 class="main_title">Welcome to the homepage for the One Inning Baseball League!</h1>
+
+    @* Navigation buttons to league management sections *@
+    <form method="post" style="display: inline-block; margin-right: 5px;">
+        <button type="submit" asp-page-handler="RegisterTeam" class="btn_Cast">Register Team</button>
+    </form>
+
+    <form method="post" style="display: inline-block; margin-right: 5px;">
+        <button type="submit" asp-page-handler="RegisterPlayer" class="btn_Cast">Register Player</button>
+    </form>
+
+    <form method="post" style="display: inline-block;">
+        <button type="submit" asp-page-handler="ScoreGame" class="btn_Cast">Score Game</button>
+    </form>
+
+    <form method="post" style="display: inline-block;">
+        <button type="submit" asp-page-handler="UpdateStats" class="btn_Cast">Enter Stats</button>
+    </form>
+
+    <form method="post" style="display: inline-block;">
+        <button type="submit" asp-page-handler="RemovePlayer" class="btn_Cast">Delete Player</button>
+    </form>
+</div>

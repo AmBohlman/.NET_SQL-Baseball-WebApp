@@ -1,0 +1,50 @@
+@page
+@model OIBaseballLeagueAPI.Pages.games.IndexModel
+@{
+    ViewData["Title"] = "Game Schedule & Results";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Display any server-side messages *@
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="error">@Model.Message</p>
+}
+
+@* Main table for game schedule and results *@
+@if (Model.GameData != null && Model.GameData.Rows.Count > 0 && Model.GameHeaders.Any())
+{
+    <table id="game_table" class="table">
+        <thead>
+            <tr>
+                @* Populate table column headers *@
+                @foreach (var headerDisplayName in Model.GameHeaders.Values)
+                {
+                    <th>@headerDisplayName</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @* Populate table rows with game data *@
+            @foreach (System.Data.DataRow row in Model.GameData.Rows)
+            {
+                <tr>
+                    @foreach (var dbColumnName in Model.GameHeaders.Keys)
+                    {
+                        <td>@row[dbColumnName]</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@* Script to initialize DataTable for sorting/filtering *@
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#game_table').DataTable();
+        });
+    </script>
+}

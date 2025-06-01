@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Coaches Portal</title>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    @*navigation bar*@
+    <nav class="nav_bar"> 
+        <ul>
+            <li class="nav_click"><a asp-page="/Index">Home</a></li>
+            <li class="nav_click"><a asp-page="/standings/Index">Standings</a></li>
+            <li class="nav_click"><a asp-page="/teams/Index">Teams</a></li>
+            <li class="nav_click"><a asp-page="/players/Index">Players</a></li>
+            <li class="nav_click"><a asp-page="/stats/Index">Stats</a></li>
+            <li class="nav_click"><a asp-page="/games/Index">Games</a></li>
+        </ul>
+    </nav>
+
+
+    <div class="main-container">
+        @RenderBody()
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    @await RenderSectionAsync("Scripts", required: false) 
+
+</body>
+</html>

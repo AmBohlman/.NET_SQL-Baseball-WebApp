@@ -1,0 +1,63 @@
+@page
+@model OIBaseballLeagueAPI.Pages.teams.IndexModel
+@{
+    ViewData["Title"] = "Team List";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Link to team registration page *@
+<p>
+    <a asp-page="/teamEntry/Index" class="btn_return">Register New team</a>
+</p>
+
+@* Display server messages *@
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="error">@Model.Message</p>
+}
+
+@* Display team list table if data exists *@
+@if (Model.TeamsData != null && Model.TeamsData.Rows.Count > 0)
+{
+    <table id="team_table" class="table">
+        <thead>
+            <tr>
+                <th class="table_head">ID#</th>
+                <th class="table_head">City</th>
+                <th class="table_head">Team Name</th>
+                <th class="table_head">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* Populate table rows with team data *@
+            @foreach (System.Data.DataRow row in Model.TeamsData.Rows)
+            {
+                <tr>
+                    <td>@row["teamID"]</td>
+                    <td>@row["city"]</td>
+                    <td>@row["teamName"]</td>
+                    <td>
+                        <form method="get" asp-page="/teams/teamDetails" asp-route-id="@row["teamID"]" style="display: inline;">
+                            <button type="submit" class="btn_info">Details</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@* Message if no teams are found and no other message is set *@
+else if (string.IsNullOrEmpty(Model.Message))
+{
+    <p>No teams currently in the league. Register a new team to get started!</p>
+}
+
+@* Script to initialize DataTable for team list *@
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#team_table').DataTable();
+        });
+    </script>
+}

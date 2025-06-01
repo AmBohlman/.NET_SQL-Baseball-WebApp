@@ -1,0 +1,70 @@
+@page "{id:int}"
+@model OIBaseballLeagueAPI.Pages.players.playerDetailsModel
+@{
+    ViewData["Title"] = "Player Details";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Display server messages *@
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="error">@Model.Message</p>
+}
+
+@* Display player information if details are loaded *@
+@if (Model.PlayerDetail != null)
+{
+    <div>
+        <h2 class="table_title">Player Information</h2>
+        <hr />
+        <div class="infoDisplay">
+            <div>
+                <strong>Player Name:</strong> 
+                <span>@Model.PlayerDetail["playerFN"]</span> 
+                <span>@Model.PlayerDetail["playerLN"]</span>
+            </div>
+            <div>
+                <strong>Player ID:</strong> 
+                <span>@Model.PlayerDetail["playerID"]</span>
+            </div>
+            <div>
+                <strong>Date of Birth:</strong> 
+                @{
+                    var dob = Model.PlayerDetail["DOB"];
+                    if (dob != DBNull.Value && dob is DateTime dateOfBirth)
+                    {
+                        <span>@dateOfBirth.ToString("MM/dd/yyyy")</span>
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                }
+            </div>
+            <div>
+                <strong>Jersey Number:</strong> 
+                <span>@Model.PlayerDetail["jerseyNumber"]</span>
+            </div>
+            <div>
+                <strong>Position:</strong> 
+                <span>@Model.PlayerDetail["position"]</span>
+            </div>
+            <div>
+                <strong>Team:</strong>
+                <span>@Model.PlayerDetail["city"]</span>
+                <span>@Model.PlayerDetail["teamName"]</span>
+            </div>
+        </div>
+    </div>
+}
+@* Message if player details could not be loaded and no other message is set *@
+else if (string.IsNullOrEmpty(Model.Message))
+{
+    <p>Player details could not be loaded or the player was not found.</p>
+}
+
+@* Link to navigate back to the player list *@
+<div class="position_return">
+    <a asp-page="./Index" class="btn_return">Back to Player List</a>
+</div>

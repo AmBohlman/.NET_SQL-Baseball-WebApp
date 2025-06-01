@@ -1,0 +1,45 @@
+@page
+@model OIBaseballLeagueAPI.Pages.standings.IndexModel
+@{
+    ViewData["Title"] = "Team Standings";
+}
+
+<h1 class="page_title">@ViewData["Title"]</h1>
+
+@* Display server messages *@
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p class="error">@Model.Message</p>
+}
+
+@* Display team standings table if data exists *@
+@if (Model.StandingsData != null && Model.StandingsData.Rows.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Team Name</th>
+                <th>W</th>
+                <th>L</th>
+                <th>Win %</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* Populate table rows with standings data *@
+            @foreach (System.Data.DataRow row in Model.StandingsData.Rows)
+            {
+                <tr>
+                    <td>@row["city"] @row["teamName"]</td>
+                    <td>@row["wins"]</td>
+                    <td>@row["losses"]</td>
+                    <td>@row["WinPercentage"]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@* Message if no standings data is available and no other message is set *@
+else if (string.IsNullOrEmpty(Model.Message))
+{
+    <p>No standings data available at the moment.</p>
+}
